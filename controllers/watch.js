@@ -17,8 +17,8 @@ module.exports = async function (req, res) {
     //check price
     if (streamInfo.price == 0) {
       var response = await yesPayment(streamInfo)
-      // streamInfo.views = streamInfo.views + 1
-      // await streamInfo.save()
+      streamInfo.views = streamInfo.views + 1
+      await streamInfo.save()
       return res.send(response)
     }
     //no auth
@@ -93,8 +93,6 @@ const yesPayment = (video) => {
         videourl: videourl,
         messageurl: process.env.MESSAGE_URL,
       }
-      video.views = video.views + 1
-      await video.save()
       resolve(videoObject)
     } catch (err) {
       console.log(err)
